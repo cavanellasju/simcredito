@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Crédito Consignado para Aposentados</title>
-    <meta name="description" content="Crédito consignado fácil e seguro para aposentados e pensionistas do INSS. Simule gratuitamente.">
+        <title>$im Crédito</title>
+    <meta name="description" content="Crédito pessoal e consignado fácil e seguro para aposentados e pensionistas do INSS. Simule gratuitamente.">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="js/script.js"> 
+<link rel="icon" href="img/$im.png" type="image/png">
 </head>
 
 <body>
@@ -15,7 +17,7 @@
         <div class="container nav">
 
             <div class="logo">
-            <h2>CréditoSeguro</h2>
+            <img src="img/logo.png" alt="">
         </div>
 
     <nav>
@@ -46,7 +48,7 @@
             Simule gratuitamente e receba sua proposta em minutos.
             </p>
 
-            <a href="#simulacao" class="btn-primary">Fazer simulação gratuita</a>
+            <a href="#contato" class="btn-primary">Entre em contato conosco</a>
 
         </div>
 
@@ -172,16 +174,17 @@
 
         <div class="cards">
 
-            <div class="card-other">
-                <p>"Fui muito bem atendido e consegui meu crédito rápido."</p>
-                <strong>José - 67 anos</strong>
-            </div>
+                <div class="card-other">
+                    <p>"Fui muito bem atendido e consegui meu crédito rápido."</p>
+                    <strong>José - 67 anos</strong>
+                </div>
 
 
-            <div class="card-other">
-                <p>"Explicaram tudo direitinho e me ajudaram muito."</p>
-                <strong>Maria - 71 anos</strong>
-            </div>
+                <div class="card-other">
+                    <p>"Explicaram tudo direitinho e me ajudaram muito."</p>
+                    <strong>Maria - 71 anos</strong>
+                </div>
+
 
         </div>
 
@@ -196,6 +199,7 @@
         <div class="form-box">
             <h2>Simule seu crédito</h2>
             <form action="enviar.php" method="POST">
+                <input type="hidden" name="tipo_formulario" value="simulacao">
                 <input type="text" name="nome" placeholder="Nome completo" required>
                 <input type="tel" name="telefone" placeholder="Telefone" required>
                 <select name="beneficio">
@@ -209,6 +213,7 @@
         <div class="form-box">
             <h2>Envie uma mensagem</h2>
             <form action="enviar.php" method="POST">
+                <input type="hidden" name="tipo_formulario" value="contato">
                 <input type="text" name="nome" placeholder="Seu nome" required>
                 <input type="email" name="email" placeholder="Seu e-mail" required>
                 <textarea name="mensagem" placeholder="Tire suas dúvidas aqui" rows="5" required></textarea>
@@ -221,31 +226,40 @@
 
 <footer id="contato">
 
-<div class="footer-container">
+    <div class="footer-container">
 
-<div class="footer-info">
-<h3>Contato</h3>
+        <div class="footer-info">
+        <h3>Contato</h3>
 
-<p><strong>Telefone:</strong> (31) 0000-0000</p>
-<p><strong>Email:</strong> contato@creditoseguro.com</p>
-<p><strong>Atendimento:</strong> Seg a Sex 8h às 18h</p>
-</div>
+            <p><strong>Telefone:</strong> (31) 0000-0000</p>
+            <p><strong>Email:</strong>
+                <a class="email" href="mailto:contato@simcredito.com?subject=Solicitação%20de%20Crédito&body=Olá,%20vim%20pelo%20site%20e%20gostaria%20de%20informações%20sobre%20crédito%20para%20aposentados."> comercial@simcredito.com.br</a></p>
+            <p><strong>Atendimento:</strong> Segunda à Sexta 8h às 18h</p>
+            <div class="sociais">
+                <a class="face" href="https://www.facebook.com/people/im-Credito-Simples-Ltda/100082498464589/" target="_blank">
+                    <img src="img/facebook.png" alt="Facebook">
+                </a> 
+                <a class="ig" href="https://www.instagram.com/simcreditobh" target="_blank">
+                    <img src="img/insta.png" alt="Instagram">
+                </a>
+            </div>
+        </div>
 
-<div class="footer-local">
-<h3>Nosso escritório</h3>
+        <div class="footer-local">
+            <h3>Nosso escritório</h3>
 
-<a href="https://maps.app.goo.gl/yLfcWitzafPDFj7D9" target="_blank">
-Venha conhecer nossas instalações
-</a>
+            <a href="https://maps.app.goo.gl/yLfcWitzafPDFj7D9" target="_blank">
+            Venha conhecer nossas instalações
+            </a>
 
-<iframe 
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3751.0612830067603!2d-43.938670899999984!3d-19.921822199999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa69925a0b29eb5%3A0xf35ecb2e6ff77d25!2sSim%20Cr%C3%A9dito%20F%C3%A1cil%20%2F%20Empr%C3%A9stimo%20Consignado!5e0!3m2!1spt-BR!2sbr!4v1773404959083!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3751.0612830067603!2d-43.938670899999984!3d-19.921822199999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa69925a0b29eb5%3A0xf35ecb2e6ff77d25!2sSim%20Cr%C3%A9dito%20F%C3%A1cil%20%2F%20Empr%C3%A9stimo%20Consignado!5e0!3m2!1spt-BR!2sbr!4v1773404959083!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
 
-</iframe>
+            </iframe>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </footer>
 
