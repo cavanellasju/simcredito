@@ -64,10 +64,20 @@ function exibirFeedback(box, mensagem, tipo = 'sucesso') {
 }
 
 async function enviarFormularioAjax(formulario) {
-  const resposta = await fetch(formulario.action, {
-    method: 'POST',
-    body: new FormData(formulario),
-  });
+  let resposta;
+  try {
+    resposta = await fetch(formulario.action, {
+      method: 'POST',
+      body: new FormData(formulario),
+    });
+  } catch (erro) {
+    throw new Error('Não foi possível conectar ao servidor de envio.');
+  }
+
+  const tipoConteudo = resposta.headers.get('content-type') || '';
+  if (!tipoConteudo.includes('application/json')) {
+    throw new Error('Servidor de formulário indisponível neste ambiente. Use hospedagem com PHP.');
+  }
 
   let dados = null;
   try {
@@ -131,10 +141,10 @@ if (formSimulacao) {
       return;
     }
 
-    try {
-      await enviarFormularioAjax(formSimulacao);
+     try {
+      const resposta = await enviarFormularioAjax(formSimulacao);
       formSimulacao.reset();
-      exibirFeedback(boxSimulacao, 'Recebemos sua solicitação, retornaremos em breve.');
+      exibirFeedback(boxSimulacao, resposta.mensagem || 'Recebemos sua solicitação e já está entrando em análise, aguarde nosso retorno!');
     } catch (erro) {
       exibirFeedback(boxSimulacao, erro.message || 'Não foi possível enviar a simulação agora.', 'erro');
     }
