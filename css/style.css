@@ -65,6 +65,9 @@ nav a{
     text-decoration:none;
 }
 
+nav a:hover{
+    color: #02c913;
+}
 
 .btn-header{
     background:#0b7208;
@@ -119,6 +122,7 @@ nav a{
     width: min(82vw, 340px);
     height: 100%;
     padding-top: 14px;
+    margin-left: auto;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
@@ -353,6 +357,24 @@ h2{
     border:none;
     font-size:18px;
 }
+
+.form-feedback {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: #e8f7e8;
+    border: 1px solid #9fd69f;
+    color: #0b4d0a;
+    font-size: 0.95rem;
+}
+
+.form-feedback.erro {
+    background: #fdecec;
+    border-color: #e39b9b;
+    color: #8a1f1f;
+}
+
+
 
 
 footer{

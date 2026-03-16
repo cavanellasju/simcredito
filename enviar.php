@@ -10,7 +10,7 @@ function respostaJson(string $mensagem, int $statusCode = 200): void
     exit;
 }
 
-function enviarEmailContato(string $destino, string $assunto, string $mensagem, string $headers, ?string &$erro = null): bool
+function enviarEmail(string $destino, string $assunto, string $mensagem, string $headers, ?string &$erro = null): bool
 {
     $erro = null;
 
@@ -26,7 +26,7 @@ function enviarEmailContato(string $destino, string $assunto, string $mensagem, 
     }
 }
 
-function registrarContatoLocal(string $nome, string $email, string $mensagemContato, ?string $erroMail = null): bool
+function registrarFormularioLocal(string $tipo, array $campos, ?string $erroMail = null): bool
 {
     $diretorio = __DIR__ . '/storage';
 
@@ -35,12 +35,17 @@ function registrarContatoLocal(string $nome, string $email, string $mensagemCont
     }
 
     $arquivo = $diretorio . '/contatos.log';
+    $partes = [];
+
+    foreach ($campos as $chave => $valor) {
+        $partes[] = sprintf('%s: %s', $chave, str_replace(["\r", "\n"], ' ', (string)$valor));
+    }
+
     $conteudo = sprintf(
-        "[%s] Nome: %s | E-mail: %s | Mensagem: %s | Erro mail(): %s%s",
+        "[%s] Tipo: %s | %s | Erro mail(): %s%s",
         date('Y-m-d H:i:s'),
-        str_replace(["\r", "\n"], ' ', $nome),
-        str_replace(["\r", "\n"], ' ', $email),
-        str_replace(["\r", "\n"], ' ', $mensagemContato),
+        $tipo,
+        implode(' | ', $partes),
         $erroMail !== null && $erroMail !== '' ? $erroMail : 'não informado',
         PHP_EOL
     );
@@ -53,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $tipoFormulario = $_POST['tipo_formulario'] ?? '';
+$destino = 'comercial@simcredito.com.br';
 
 if ($tipoFormulario === 'contato') {
     $nome = trim($_POST['nome'] ?? '');
@@ -67,21 +73,23 @@ if ($tipoFormulario === 'contato') {
         respostaJson('E-mail inválido.', 422);
     }
 
-    $destino = 'comercial@simcredito.com.br';
     $assunto = 'Nova mensagem de contato do site';
-
     $mensagem = "Nome: {$nome}\n"
         . "E-mail: {$email}\n\n"
         . "Mensagem:\n{$mensagemContato}\n";
 
-    $headers = "From: no-reply@seudominio.com\r\n";
+    $headers = "From: no-reply@simcredito.com.br\r\n";
     $headers .= "Reply-To: {$email}\r\n";
 
     $erroMail = null;
-    $enviado = enviarEmailContato($destino, $assunto, $mensagem, $headers, $erroMail);
+    $enviado = enviarEmail($destino, $assunto, $mensagem, $headers, $erroMail);
 
     if (!$enviado) {
-        $registradoLocalmente = registrarContatoLocal($nome, $email, $mensagemContato, $erroMail);
+        $registradoLocalmente = registrarFormularioLocal('contato', [
+            'Nome' => $nome,
+            'E-mail' => $email,
+            'Mensagem' => $mensagemContato,
+        ], $erroMail);
 
         if ($registradoLocalmente) {
             respostaJson('Não foi possível enviar por e-mail agora. Sua mensagem foi registrada e o time comercial fará contato em breve.', 202);
@@ -97,38 +105,44 @@ if ($tipoFormulario === 'simulacao') {
     $nome = trim($_POST['nome'] ?? '');
     $telefone = trim($_POST['telefone'] ?? '');
     $beneficio = trim($_POST['beneficio'] ?? '');
-    $valor = (float)($_POST['valor'] ?? 0);
+    $valor = trim($_POST['valor'] ?? '');
 
-    if ($nome === '' || $telefone === '' || $beneficio === '' || $valor <= 0) {
+    if ($nome === '' || $telefone === '' || $beneficio === '' || $valor === '') {
         respostaJson('Preencha corretamente todos os campos da simulação.', 422);
     }
 
-    $dbHost = getenv('DB_HOST') ?: '127.0.0.1';
-    $dbPort = getenv('DB_PORT') ?: '3306';
-    $dbName = getenv('DB_NAME') ?: 'simcredito';
-    $dbUser = getenv('DB_USER') ?: 'root';
-    $dbPass = getenv('DB_PASS') ?: '';
-
-    try {
-        $dsn = "mysql:host={$dbHost};port={$dbPort};dbname={$dbName};charset=utf8mb4";
-        $pdo = new PDO($dsn, $dbUser, $dbPass, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ]);
-
-        $sql = 'INSERT INTO simulacoes_credito (nome, telefone, beneficio, valor_desejado, criado_em) VALUES (:nome, :telefone, :beneficio, :valor, NOW())';
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':nome' => $nome,
-            ':telefone' => $telefone,
-            ':beneficio' => $beneficio,
-            ':valor' => $valor,
-        ]);
-    } catch (PDOException $e) {
-        respostaJson('Não foi possível salvar a simulação na base de dados.', 500);
+    if (!preg_match('/^[0-9]{1,13}$/', $telefone)) {
+        respostaJson('Telefone inválido. Use apenas números com até 13 dígitos.', 422);
     }
 
-    respostaJson('Simulação enviada com sucesso para análise da API.');
+    $assunto = 'Nova solicitação de simulação de crédito';
+    $mensagem = "Nome: {$nome}\n"
+        . "Telefone: {$telefone}\n"
+        . "Benefício: {$beneficio}\n"
+        . "Valor desejado: {$valor}\n";
+
+    $headers = "From: no-reply@simcredito.com.br\r\n";
+    $headers .= "Reply-To: {$destino}\r\n";
+
+    $erroMail = null;
+    $enviado = enviarEmail($destino, $assunto, $mensagem, $headers, $erroMail);
+
+    if (!$enviado) {
+        $registradoLocalmente = registrarFormularioLocal('simulacao', [
+            'Nome' => $nome,
+            'Telefone' => $telefone,
+            'Benefício' => $beneficio,
+            'Valor desejado' => $valor,
+        ], $erroMail);
+
+        if ($registradoLocalmente) {
+            respostaJson('Recebemos sua solicitação e retornaremos em breve.', 202);
+        }
+
+        respostaJson('Não foi possível enviar sua simulação neste momento.', 500);
+    }
+
+    respostaJson('Recebemos sua solicitação e retornaremos em breve.');
 }
 
 respostaJson('Tipo de formulário inválido.', 400);

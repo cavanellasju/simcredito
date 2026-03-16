@@ -9,9 +9,14 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 });
 
 const menuOverlay = document.querySelector('.menu-overlay');
-const menuToggle = document.querySelector('.menu-toggle');
 const menuClose = document.querySelector('.menu-close');
 const menuLinks = document.querySelectorAll('.side-menu a');
+const menuToggle = document.getElementById("menu-toggle");
+const sidebar = document.getElementById("sidebar");
+
+menuToggle.addEventListener("click", function () {
+    sidebar.classList.toggle("ativo");
+});
 
 function openMenu() {
   if (!menuOverlay || !menuToggle) return;
@@ -55,12 +60,87 @@ window.addEventListener('resize', () => {
   }
 });
 
-const form = document.querySelector("form");
-const botao = document.getElementById("btnSend");
+function exibirFeedback(box, mensagem, tipo = 'sucesso') {
+  if (!box) return;
 
-form.addEventListener("submit", function () {
+  box.hidden = false;
+  box.textContent = mensagem;
+  box.classList.toggle('erro', tipo === 'erro');
+}
 
-    botao.innerText = "Email enviado!";
-    botao.disabled = true;
+async function enviarFormularioAjax(formulario) {
+  const resposta = await fetch(formulario.action, {
+    method: 'POST',
+    body: new FormData(formulario),
+  });
 
-});
+  let dados = null;
+  try {
+    dados = await resposta.json();
+  } catch (erro) {
+    throw new Error('Resposta inválida do servidor.');
+  }
+
+  if (!resposta.ok) {
+    throw new Error(dados.mensagem || 'Não foi possível processar sua solicitação.');
+  }
+
+  return dados;
+}
+
+const formContato = document.getElementById('form-contato');
+const btnSend = document.getElementById('btnSend');
+const boxContato = document.getElementById('contato-feedback');
+
+if (formContato && btnSend) {
+  formContato.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    if (!formContato.checkValidity()) {
+      formContato.reportValidity();
+      return;
+    }
+
+    btnSend.disabled = true;
+
+    try {
+      const resposta = await enviarFormularioAjax(formContato);
+      btnSend.innerText = 'Mensagem enviada!';
+      formContato.reset();
+      exibirFeedback(boxContato, resposta.mensagem || 'Mensagem enviada com sucesso.');
+    } catch (erro) {
+      btnSend.disabled = false;
+      exibirFeedback(boxContato, erro.message || 'Não foi possível enviar sua mensagem agora.', 'erro');
+    }
+  });
+}
+
+const formSimulacao = document.getElementById('form-simulacao');
+const boxSimulacao = document.getElementById('simulacao-feedback');
+const inputTelefone = formSimulacao?.querySelector('input[name="telefone"]');
+
+if (inputTelefone) {
+  inputTelefone.addEventListener('input', () => {
+    const somenteNumeros = inputTelefone.value.replace(/\D/g, '').slice(0, 13);
+    inputTelefone.value = somenteNumeros;
+  });
+}
+
+if (formSimulacao) {
+  formSimulacao.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    if (!formSimulacao.checkValidity()) {
+      formSimulacao.reportValidity();
+      return;
+    }
+
+    try {
+      await enviarFormularioAjax(formSimulacao);
+      formSimulacao.reset();
+      exibirFeedback(boxSimulacao, 'Recebemos sua solicitação, retornaremos em breve.');
+    } catch (erro) {
+      exibirFeedback(boxSimulacao, erro.message || 'Não foi possível enviar a simulação agora.', 'erro');
+    }
+  });
+}

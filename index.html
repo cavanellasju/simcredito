@@ -7,7 +7,6 @@
         <title>$im Crédito</title>
     <meta name="description" content="Crédito pessoal e consignado fácil e seguro para aposentados e pensionistas do INSS. Simule gratuitamente.">
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="js/script.js"> 
 <link rel="icon" href="img/$im.png" type="image/png">
 </head>
 
@@ -217,10 +216,10 @@
     <div class="container forms-wrapper">
         <div class="form-box">
             <h2>Simule seu crédito</h2>
-            <form action="enviar.php" method="POST">
+            <form id="form-simulacao" action="enviar.php" method="POST">
                 <input type="hidden" name="tipo_formulario" value="simulacao">
                 <input type="text" name="nome" placeholder="Nome completo" required>
-                <input type="tel" name="telefone" placeholder="Telefone" required>
+                <input type="tel" name="telefone" placeholder="Telefone" inputmode="numeric" pattern="[0-9]{1,13}" minlength="11" maxlength="13" required>
                 <select name="beneficio">
                     <option>Aposentado</option>
                     <option>Pensionista</option>
@@ -228,16 +227,20 @@
                 <input type="number" name="valor" placeholder="Valor desejado">
                 <button type="submit">Solicitar simulação</button>
             </form>
+             <div id="simulacao-feedback" class="form-feedback" role="status" aria-live="polite" hidden>
+             </div>
         </div>
         <div class="form-box">
             <h2>Envie uma mensagem</h2>
-            <form action="enviar.php" method="POST">
+            <form id="form-contato" action="enviar.php" method="POST">
                 <input type="hidden" name="tipo_formulario" value="contato">
                 <input type="text" name="nome" placeholder="Seu nome" required>
                 <input type="email" name="email" placeholder="Seu e-mail" required>
                 <textarea name="mensagem" placeholder="Tire suas dúvidas aqui" rows="5" required></textarea>
                 <button type="submit" id="btnSend">Enviar mensagem</button>
             </form>
+            <div id="contato-feedback" class="form-feedback" role="status" aria-live="polite" hidden>
+            </div>
         </div>
     </div>
 </section>
