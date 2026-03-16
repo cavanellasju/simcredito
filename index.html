@@ -20,6 +20,12 @@
             <img src="img/logo.png" alt="">
         </div>
 
+     <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-controls="menu-mobile" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
     <nav>
         <ul>
             <li><a href="#inicio">Início</a></li>
@@ -34,6 +40,19 @@
 
     </div>
 </header>
+
+<div class="menu-overlay" id="menu-mobile" aria-hidden="true">
+    <aside class="side-menu" role="dialog" aria-label="Menu de navegação">
+        <button class="menu-close" type="button" aria-label="Fechar menu">×</button>
+        <ul>
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#funciona">Como Funciona</a></li>
+            <li><a href="#beneficios">Benefícios</a></li>
+            <li><a href="#simulacao">Simulação</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </aside>
+</div>
 
 <section class="hero" id="inicio">
 
@@ -217,7 +236,7 @@
                 <input type="text" name="nome" placeholder="Seu nome" required>
                 <input type="email" name="email" placeholder="Seu e-mail" required>
                 <textarea name="mensagem" placeholder="Tire suas dúvidas aqui" rows="5" required></textarea>
-                <button type="submit">Enviar mensagem</button>
+                <button type="submit" id="btnSend">Enviar mensagem</button>
             </form>
         </div>
     </div>
