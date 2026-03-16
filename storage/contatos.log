@@ -8,3 +8,10 @@
 [2026-03-16 15:27:55] Tipo: contato | Nome: Juliana Cavanellas | E-mail: jucavanellasmkt@gmail.com | Mensagem: rweg4eh54e6jui67kit78ko4 | Erro mail(): mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set()
 [2026-03-16 15:39:41] Tipo: simulacao | Nome: julio | Telefone: 31984466208 | Benefício: Aposentado | Valor desejado: 1000 | Erro mail(): mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set()
 [2026-03-16 15:40:02] Tipo: contato | Nome: Juliana Cavanellas | E-mail: jucavanellasmkt@gmail.com | Mensagem: yugftygfuuy | Erro mail(): mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set()
+[2026-03-16 17:41:02] Tipo: contato | Nome: João Silva | E-mail: joao@example.com | Mensagem: Teste de mensagem | Erro mail(): não informado
+[2026-03-16 17:41:18] Tipo: contato | Nome: João Silva | E-mail: joao@example.com | Mensagem: Teste de mensagem | Erro mail(): não informado
+[2026-03-16 17:41:30] Tipo: simulacao | Nome: Maria | Telefone: 11987654321 | Benefício: Aposentado | Valor desejado: 10000 | Erro mail(): não informado
+[2026-03-16 17:45:28] Tipo: contato | Nome: Juliana Cavanellas | E-mail: jucavanellasmkt@gmail.com | Mensagem: boa tarde | Erro mail(): não informado
+[2026-03-16 17:46:25] Tipo: contato | Nome: João | E-mail: joao@test.com | Mensagem: Teste | Erro mail(): não informado
+[2026-03-16 17:46:41] Tipo: simulacao | Nome: Maria | Telefone: 11987654321 | Benefício: Aposentado | Valor desejado: 5000 | Erro mail(): não informado
+[2026-03-16 17:48:39] Tipo: contato | Nome: Juliana Cavanellas | E-mail: jucavanellasmkt@gmail.com | Mensagem: tudo bem? | Erro mail(): não informado

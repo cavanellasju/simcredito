@@ -494,6 +494,7 @@ a.whatsapp{
         font-size: 17px;
     }
 
+    
     h2 {
         font-size: 2rem;
     }
@@ -526,12 +527,17 @@ a.whatsapp{
 }
 
 @media (max-width:768px){
+    header {
+        height: auto;
+    }
+
     .container {
         width: 92%;
         padding-bottom: 16%;
     }
 
     .nav {
+        padding: 10px 0;
         flex-direction: row;
         flex-wrap: nowrap;
         align-items: center;
@@ -540,15 +546,27 @@ a.whatsapp{
         gap: 8px;
     }
 
-    nav,
-    .btn-header {
-        display: none;
+    .logo img {
+        height: 3rem;
+        padding: 3px;
     }
 
     .menu-toggle {
         display: inline-flex;
         margin-left: auto;
+        padding: 7px;
+        gap: 4px;
     }
+
+    .menu-toggle span {
+        width: 25px;
+    }
+
+    nav,
+    .btn-header {
+        display: none;
+    }
+    
 
     .hero {
         padding: 36px 0;
@@ -598,9 +616,29 @@ a.whatsapp{
         font-size: 16px;
     }
 
-    .logo img {
-        height: 3.2rem;
+     header {
+        height: auto;
     }
+
+    .nav {
+        padding: 8px 0;
+        gap: 6px;
+    }
+
+    .logo img {
+        height: 2.8rem;
+        padding: 2px;
+    }
+
+    .menu-toggle {
+        padding: 6px;
+        gap: 4px;
+    }
+
+    .menu-toggle span {
+        width: 24px;
+    }
+
 
     h2 {
         font-size: 1.7rem;

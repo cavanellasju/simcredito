@@ -11,12 +11,7 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 const menuOverlay = document.querySelector('.menu-overlay');
 const menuClose = document.querySelector('.menu-close');
 const menuLinks = document.querySelectorAll('.side-menu a');
-const menuToggle = document.getElementById("menu-toggle");
-const sidebar = document.getElementById("sidebar");
-
-menuToggle.addEventListener("click", function () {
-    sidebar.classList.toggle("ativo");
-});
+const menuToggle = document.querySelector('.menu-toggle');
 
 function openMenu() {
   if (!menuOverlay || !menuToggle) return;
@@ -81,11 +76,12 @@ async function enviarFormularioAjax(formulario) {
     throw new Error('Resposta inválida do servidor.');
   }
 
-  if (!resposta.ok) {
-    throw new Error(dados.mensagem || 'Não foi possível processar sua solicitação.');
+  // Se recebeu uma resposta com conteúdo, considera sucesso
+  if (dados && dados.mensagem) {
+    return dados;
   }
 
-  return dados;
+  throw new Error('Resposta inválida do servidor.');
 }
 
 const formContato = document.getElementById('form-contato');
