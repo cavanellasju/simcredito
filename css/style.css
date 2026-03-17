@@ -386,7 +386,7 @@ footer{
 
 .footer-container{
     display:flex;
-    justify-content:space-between;
+    justify-content:space-between; /*Desenvolvido por Juliana Cavanellas*/
     gap:6vh;
     max-width:120vh;
     margin:auto;
@@ -466,6 +466,11 @@ a:active {
     border-radius:1vh;
 }
 
+.ass {
+    justify-content: center;
+    text-align: center;
+}
+
 .whatsapp{
     position: fixed;
     right: 20px;
@@ -541,7 +546,7 @@ a.whatsapp{
         flex-direction: row;
         flex-wrap: nowrap;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-between; 
         text-align: left;
         gap: 8px;
     }
@@ -624,7 +629,7 @@ a.whatsapp{
         padding: 8px 0;
         gap: 6px;
     }
-
+    /*Desenvolvido por Juliana Cavanellas*/
     .logo img {
         height: 2.8rem;
         padding: 2px;

@@ -50,6 +50,7 @@ function enviarPorSmtp(
     string $mensagem
 ): bool {
     $alvo = $porta === 465 ? "ssl://{$host}" : $host;
+    /*Desenvolvido por Juliana Cavanellas*/
     $socket = executarSemWarning(static fn () => stream_socket_client("{$alvo}:{$porta}", $errno, $errstr, 15));
 
     if (!$socket) {
@@ -287,7 +288,7 @@ try {
 
         if (!$enviado) {
             if ($registradoLocalmente) {
-                respostaJson('Recebemos sua solicitação e já está entrando em análise, aguarde nosso retorno!', 200);
+                respostaJson('Recebemos sua solicitação e já está entrando em análise, aguarde nosso retorno!', 200); /*Desenvolvido por Juliana Cavanellas*/
             }
 
             respostaJson('Recebemos sua solicitação e já está entrando em análise, aguarde nosso retorno!', 200);

@@ -10,7 +10,7 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 
 const menuOverlay = document.querySelector('.menu-overlay');
 const menuClose = document.querySelector('.menu-close');
-const menuLinks = document.querySelectorAll('.side-menu a');
+const menuLinks = document.querySelectorAll('.side-menu a'); /*Desenvolvido por Juliana Cavanellas*/
 const menuToggle = document.querySelector('.menu-toggle');
 
 function openMenu() {
